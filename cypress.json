@@ -3,7 +3,9 @@
   "env": {
     "baseUrl": "https://forcebase1.a.shiftdev.io",
     "username": "test-buyer@shift.com",
-    "password": "forensic-mildew-coif-proper"
+    "password": "forensic-mildew-coif-proper",
+    "STAGING_USER": "shift",
+    "STAGING_PASS": "sh!ft_pass1!"
   },
   "defaultCommandTimeout": 30000,
   "viewportHeight": 900,
