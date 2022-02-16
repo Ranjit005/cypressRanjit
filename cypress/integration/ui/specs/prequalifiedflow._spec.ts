@@ -1,4 +1,4 @@
-import { financing } from '../pages';
+/*import { financing } from '../pages';
 import { actions } from '../pages';
 import { utils } from '../pages';
 
@@ -116,4 +116,4 @@ describe('Pre-qualified flow', () => {
         });
       });
   });
-});
+});*/

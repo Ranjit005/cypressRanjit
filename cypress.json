@@ -18,5 +18,5 @@
   "ignoreTestFiles": "*._steps.js",
   "integrationFolder": "cypress/integration/",
   "testFiles": "**/*.feature",
-  "projectId": "zqxn7c"
+  "projectId": "p2afyx"
 }
