@@ -4,5 +4,5 @@ Given('I navigate to Google Page', () => {
 });
 Given('I click on Search Link', () => {
     cy.xpath("//a[contains(text(),'Sign in')]").click()
-    cy.xpath("//a[contains(text(),'NonSense')]").should('be.visible')
+    //cy.xpath("//a[contains(text(),'NonSense')]").should('be.visible')
   });
