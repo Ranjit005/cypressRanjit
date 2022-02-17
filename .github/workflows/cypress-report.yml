@@ -10,8 +10,8 @@ on:
 jobs:
   cypress-test:
     name: Run on Chrome 97
-    runs-on: ubuntu-18.04
-    container: cypress/browsers:node12.18.0-chrome83-ff77
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node16.5.0-chrome97-ff96
     steps:
       - uses: actions/checkout@v2
 
@@ -23,7 +23,16 @@ jobs:
         run: npm run run_Test_GitAction
         continue-on-error: true
 
-      - name: Copy test execution videos and screenshots
-        run: |
-          mkdir public
-          cp -r cypress/screenshots public/screenshots
+      - name: Upload Screenshot Artifacts
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Video Artifacts
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
