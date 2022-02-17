@@ -22,3 +22,8 @@ jobs:
       - name: Run Cypress tests
         run: npm run run_Test_GitAction
         continue-on-error: true
+        - name: Copy test execution videos and screenshots
+        run: |
+          mkdir public
+          cp -r cypress/public/videos
+          cp -r cypress/public/screenshots
