@@ -25,6 +25,6 @@ jobs:
 
       - name: Copy test execution videos and screenshots
         run: |
-          mkdir docs
-          cp -r docs/videos
-          cp -r docs/screenshots
+          mkdir public
+          cp -r cypress/videos public/videos
+          cp -r cypress/screenshots public/screenshots
