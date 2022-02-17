@@ -1,0 +1,61 @@
+name: Regression Workflow
+
+on:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - master
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - run: echo "TEMP PIPELINE FOR Fix-GithubSecrets"
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Run npm ci
+        uses: actions/setup-node@v1
+      - run: npm ci
+
+      - name: Run Cypress Tests
+        env:
+          CYPRESS_QA_AUTH_TOKEN_BUYER: ${{ secrets.QA_AUTH_TOKEN_BUYER }}
+          CYPRESS_QA_AUTH_TOKEN_INTERNAL: ${{ secrets.QA_AUTH_TOKEN_INTERNAL }}
+          CYPRESS_QA_AUTH_TOKEN_SELLER: ${{ secrets.QA_AUTH_TOKEN_SELLER }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_APIPASSWORD: ${{ secrets.CYPRESS_APIPASSWORD }}
+          CYPRESS_APIUSERNAME: ${{ secrets.CYPRESS_APIUSERNAME }}
+          CYPRESS_TOKEN: ${{ secrets.CYPRESS_TOKEN }}
+          CYPRESS_STAGING_TOKEN: ${{ secrets.CYPRESS_STAGING_TOKEN }}
+          CYPRESS_STAGING_USER: ${{ secrets.CYPRESS_STAGING_USER }}
+          CYPRESS_STAGING_PASS: ${{ secrets.CYPRESS_STAGING_PASS }}
+        uses: cypress-io/github-action@v2
+        with:
+          record: true
+          parallel: true
+
+      - name: Upload Screenshot Artifacts
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      # - name: Upload Video Artifacts
+      #   uses: actions/upload-artifact@v1
+      #   if: failure()
+      #   with:
+      #     name: cypress-videos
+      #     path: cypress/videos
