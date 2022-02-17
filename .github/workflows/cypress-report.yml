@@ -11,7 +11,7 @@ jobs:
   cypress-test:
     name: Run on Chrome 97
     runs-on: ubuntu-latest
-    container: cypress/browsers:node16.5.0-chrome97-ff96
+    container: cypress/browsers:node12.19.0-chrome86-ff82
     steps:
       - uses: actions/checkout@v2
 
